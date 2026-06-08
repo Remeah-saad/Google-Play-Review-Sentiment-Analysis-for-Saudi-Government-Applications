@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>تحليل مراجعات Google</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI';
+    background: #f5f7fb;
+}
+
+.container {
+    max-width: 700px;
+    margin: 80px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #4CAF50;
+    color: white;
+    font-size: 16px;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.positive {
+    background: #e8f5e9;
+}
+
+.negative {
+    background: #ffebee;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1> تحليل مراجعات Google للتطبيقات السعودية</h1>
+
+<form action="/predict" method="post">
+<textarea name="review" rows="5" placeholder="اكتب مراجعتك هنا..."></textarea>
+<button type="submit">تحليل المراجعة</button>
+</form>
+
+{% if label %}
+<div class="result {{ 'positive' if label|lower == 'positive' else 'negative' }}">
+
+<h3>
+{% if label|lower == 'positive' %}
+إيجابي 😊
+{% else %}
+سلبي 😕
+{% endif %}
+</h3>
+
+{% if suggestions %}
+<ul>
+{% for s in suggestions %}
+<li>{{ s }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+</div>
+{% endif %}
+
+</div>
+
+</body>
+</html>
